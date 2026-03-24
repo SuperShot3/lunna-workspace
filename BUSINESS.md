@@ -38,7 +38,7 @@ Chiang Mai, Thailand (delivery area selection is based on Chiang Mai province di
 ## Customer communication rules
 - Use only the business’s official channels/links in this repo for contact and reviews
 - When sending product links, always use the live base URL (requires confirmation if not explicitly configured) and the URL patterns in the Links section
-- When recommending specific items, use the repo catalog index (`content/catalog/catalog.json`) as the source of truth for slugs/URLs (generate it with `npm run export-catalog`)
+- When recommending specific items, use the workspace `catalog.json` as the source of truth for slugs/URLs
 - Never promise delivery times/fees, same-day delivery, stock availability, or payment options unless confirmed
 - If details are missing (price, delivery fee, availability, payment method), ask for the order link/order ID or hand off for human confirmation
 
@@ -48,7 +48,7 @@ Chiang Mai, Thailand (delivery area selection is based on Chiang Mai province di
 - Must not answer directly: anything requiring personal data access (order status/payment) without an order link/order ID and authorized workflow
 
 ## Product source
-Structured product and link data may be stored in `catalog/products.json`.
+Structured product and link data is in `catalog.json` at the workspace root.
 Use it for product lookup, category matching, and sending exact links.
 Do not invent missing catalog facts.
 

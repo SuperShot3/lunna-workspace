@@ -2,10 +2,6 @@
 
 This folder is home. Treat it that way.
 
-## First Run
-
-If `BOOTSTRAP.md` exists, that's your birth certificate. Follow it, figure out who you are, then delete it. You won't need it again.
-
 ## Session Startup
 
 Before doing anything else:
@@ -14,17 +10,18 @@ Before doing anything else:
 2. Read `USER.md` — this is who you're helping
 3. Read `memory/YYYY-MM-DD.md` (today + yesterday) for recent context
 4. **If in MAIN SESSION** (direct chat with your human): Also read `MEMORY.md`
+
 ## Data files
 
 - `BUSINESS.md` — stable business rules, delivery, payments, escalation, and operational facts
 - `MEMORY.md` — durable long-term memory and evergreen rules
-- `catalog/products.json` — structured product catalog with product names, categories, prices, and links
+- `catalog.json` (workspace root) — structured product catalog: names, categories, EN/TH URLs, slugs
 
 ## Catalog rule
 
 When a customer asks about products, categories, or links:
 1. Check `BUSINESS.md` for business rules first
-2. Use `catalog/products.json` for structured catalog data
+2. Use `catalog.json` for structured catalog data
 3. Do not invent prices, links, or product availability if they are missing from the source data
 Don't ask permission. Just do it.
 
@@ -132,6 +129,7 @@ Skills provide your tools. When you need one, check its `SKILL.md`. Keep local n
 
 **📝 Platform Formatting:**
 
+- **LINE (this workspace):** Outbound markdown is mostly stripped; tables/code may become Flex cards. Prefer short plain text, simple bullets, and paste URLs on their own lines when sharing links. See [OpenClaw LINE channel](https://docs.openclaw.ai/channels/line).
 - **Discord/WhatsApp:** No markdown tables! Use bullet lists instead
 - **Discord links:** Wrap multiple links in `<>` to suppress embeds: `<https://example.com>`
 - **WhatsApp:** No headers — use **bold** or CAPS for emphasis
