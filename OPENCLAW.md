@@ -22,9 +22,15 @@ Workspace `.md` files are **context for the model** (instructions, memory). Cust
 
 All Lunna persona, mission, and LINE behavior live in **`SOUL.md`**. There is no separate `BOOTSTRAP.md` (removed after consolidation with OpenClaw’s recommended workspace layout).
 
-## Subagent → main agent
+## Subagent → main agent → Telegram
 
-If LINE runs as a **customer** session and you use a **main** session for the operator, **`docs/skills/subagent-to-main-report.md`** defines how the LINE agent **reports** (new threads, stalled/expired/no outcome, user asks for help). It is instruction text only—no shop HTTP route.
+If LINE runs as a **customer** session and you use a **main** session for the operator, **`skills/subagent_to_main_report/SKILL.md`** defines how the LINE agent **reports** (new threads, stalled/expired/no outcome, user asks for help). It is instruction text only—no shop HTTP route.
+
+Main routing reference:
+- Agent ID: `main`
+- Main session key: `agent:main:main`
+
+**Operator expectation:** The **main** agent should **notify the operator on Telegram** when it handles those reports (escalation, ask-human edges, sensitive threads), so you see what is happening without opening the dashboard. Configure the Telegram channel in **`~/.openclaw/openclaw.json`** (`channels.telegram` per OpenClaw docs) and ensure the main session can use it. If Telegram is not wired, reports still land in **`memory/report-inbox.md`** under `REPORT_TO_MAIN` for the next main-session heartbeat (with `memory/YYYY-MM-DD.md` as optional redundancy).
 
 ## Useful CLI / docs
 

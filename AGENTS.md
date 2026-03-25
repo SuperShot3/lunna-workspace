@@ -127,13 +127,23 @@ Skills provide your tools. When you need one, check its `SKILL.md`. Keep local n
 
 ### Lanna Bloom shop (LINE customer)
 
-- **HTTP contract:** `docs/skills/line-order-agent.md` (quick ref) and `docs/lanna-bloom-skill.md` (full behavior + section 4).
+- **HTTP contract:** skill `skills/line_order_agent_http/SKILL.md`.
 - **Cart / handoff:** Always use **`upsertDraft`** then **`getHandoffUrl`** and send the returned `url`. Never tell the customer you cannot link to the cart if the tools exist—attempt the flow first.
 - **Failed shop API calls:** If a shop tool returns no body, times out, or errors, append one line to **`memory/shop-api-log.md`** (format in that file), then give a short apology and the public cart URL (`/en/cart` or `/th/cart` matching chat language). Do not invent handoff tokens.
 
 ### LINE customer subagent → main agent
 
-If you run as (or alongside) a **LINE customer** session separate from the **main** operator session, read **`docs/skills/subagent-to-main-report.md`** when you need to **report** to the main agent: new conversations worth tracking, threads that stalled or expired without conclusion, or when the user asks for human help so the operator can **join** the LINE thread. That file is the spec—no separate shop API for “report.”
+If you run as (or alongside) a **LINE customer** session separate from the **main** operator session, use the skill **`skills/subagent_to_main_report/SKILL.md`** when you need to **report** to the main agent: new conversations worth tracking, threads that stalled or expired without conclusion, or when the user asks for human help so the operator can **join** the LINE thread.
+
+### Main agent (operator): Telegram when LINE escalates
+
+If you are the **main** session (direct chat with Konstantin / operator tooling):
+
+1. On startup, scan `memory/report-inbox.md` for `REPORT_TO_MAIN` and `OPERATOR_ALERT_PENDING` blocks (startup-only; do not poll this file in every heartbeat).
+2. During **heartbeats**, do *not* scan `memory/report-inbox.md` by default. Only scan it if a heartbeat contains an explicit “check report inbox” instruction (or you detect Telegram previously failed and need catch-up).
+3. As a fallback, scan today’s `memory/YYYY-MM-DD.md` for `REPORT_TO_MAIN` / `OPERATOR_ALERT_PENDING` (date-memory) during heartbeats if needed.
+4. When you process a subagent report or escalation edge, **send Konstantin a Telegram message** with a concise briefing (urgency, LINE context, summary, suggested next step)—see **`skills/subagent_to_main_report/SKILL.md`**. Telegram must be configured on the Gateway (`OPENCLAW.md`).
+5. Then decide whether to join LINE, follow up, or update memory—per that same file.
 
 **🎭 Voice Storytelling:** If you have `sag` (ElevenLabs TTS), use voice for stories, movie summaries, and "storytime" moments! Way more engaging than walls of text. Surprise people with funny voices.
 

@@ -43,7 +43,7 @@ Chiang Mai, Thailand (delivery area selection is based on Chiang Mai province di
 - If details are missing (price, delivery fee, availability, payment method), ask for the order link/order ID or hand off for human confirmation
 
 ## Escalation rules
-- **Main agent reports:** Detailed behavior for when the LINE-facing agent should **inform the main/operator session** (new conversation, stalled/expired/no conclusion, user asks for help) is in **`docs/skills/subagent-to-main-report.md`**—not a backend API.
+- **Main agent reports:** Detailed behavior for when the LINE-facing agent should **inform the main/operator session** (new conversation, stalled/expired/no conclusion, user asks for help) is in **`skills/subagent_to_main_report/SKILL.md`**—not a backend API.
 - Hand off to a human for: payment method questions, delivery fee quotes, same-day/urgent delivery, out-of-area delivery, cancellations/refunds, or complaints
 - Confirmation required for: availability, substitutions, delivery windows, delivery pricing, promotions, and any policy not explicitly documented
 - Must not answer directly: anything requiring personal data access (order status/payment) without an order link/order ID and authorized workflow
