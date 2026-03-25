@@ -4,6 +4,25 @@ Mirror of [`../lanna-bloom-skill.md`](../lanna-bloom-skill.md) section 4. Update
 
 ---
 
+## Cart and handoff — mandatory
+
+- **Never** tell the customer you cannot show the cart or that a cart link is impossible. The website cart is the source of truth; your job is to **call the shop tools** and send the URL the API returns.
+- When the user asks for their cart, checkout, or a link to continue: ensure draft intent is reflected with **`upsertDraft`** (if there are items or you just updated the draft), then call **`getHandoffUrl`** and **paste the `url` from the success response** on its own line in LINE.
+- If there is no draft yet, briefly confirm what to add, **upsertDraft**, then **getHandoffUrl** — still send the link; do not stop at “I can’t show a cart.”
+- **`lang` in `draft` and `getHandoffUrl` must match the language you are using in chat** (`en` or `th`). See `SOUL.md` / `MEMORY.md` for reply language rules.
+
+---
+
+## When a shop API call sends no reply or fails
+
+After **any** agent→shop request (`POST /api/agent/line`, payment GET/POST) if the tool returns nothing, errors, times out, or you cannot parse JSON success:
+
+1. **Append one line** to **`memory/shop-api-log.md`** using the format in that file’s header (timestamp, `action=…`, `result=` such as `no_response`, `timeout`, `http_503`, `parse_error`, short note). Do not log secrets.
+2. In the customer message: apologize briefly, say the link could not be generated right now, and give the **manual fallback**: catalog or cart base on the site — e.g. `https://lannabloom.shop/en/cart` or `https://lannabloom.shop/th/cart` matching their language — and ask them to try again in chat in a moment if they prefer a handoff link.
+3. Do **not** invent a `handoff` query or token; only send `url` from a successful **`getHandoffUrl`** response.
+
+---
+
 ## Base
 
 `https://lannabloom.shop` — matches `NEXT_PUBLIC_APP_URL` in production. No trailing slash.

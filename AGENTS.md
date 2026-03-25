@@ -125,6 +125,12 @@ Reactions are lightweight social signals. Humans use them constantly — they sa
 
 Skills provide your tools. When you need one, check its `SKILL.md`. Keep local notes (camera names, SSH details, voice preferences) in `TOOLS.md`.
 
+### Lanna Bloom shop (LINE customer)
+
+- **HTTP contract:** `docs/skills/line-order-agent.md` (quick ref) and `docs/lanna-bloom-skill.md` (full behavior + section 4).
+- **Cart / handoff:** Always use **`upsertDraft`** then **`getHandoffUrl`** and send the returned `url`. Never tell the customer you cannot link to the cart if the tools exist—attempt the flow first.
+- **Failed shop API calls:** If a shop tool returns no body, times out, or errors, append one line to **`memory/shop-api-log.md`** (format in that file), then give a short apology and the public cart URL (`/en/cart` or `/th/cart` matching chat language). Do not invent handoff tokens.
+
 ### LINE customer subagent → main agent
 
 If you run as (or alongside) a **LINE customer** session separate from the **main** operator session, read **`docs/skills/subagent-to-main-report.md`** when you need to **report** to the main agent: new conversations worth tracking, threads that stalled or expired without conclusion, or when the user asks for human help so the operator can **join** the LINE thread. That file is the spec—no separate shop API for “report.”

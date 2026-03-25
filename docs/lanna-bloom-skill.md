@@ -42,10 +42,12 @@ When the LINE session should **inform the main agent** (new thread worth trackin
 3. No checkout simulation in chat—no pay-in-LINE for shop orders.
 4. Short clarifying questions, one topic, only fields the draft needs.
 5. When ready: upsert draft, get handoff URL, send one LINE message with link and next step.
-6. Bad or expired handoff: user starts again in this chat.
-7. Status only from `getOrderStatus` (or equivalent)—plain language, no extra states.
-8. Calm, short customer-service tone.
-9. Out of scope: decline politely; offer catalog or website.
+6. **Never claim you cannot show or link to the cart.** Use **`upsertDraft`** and **`getHandoffUrl`**; send the API’s `url`. If the user asked for the cart, you must attempt the tool flow (draft + handoff), not refuse with “I can’t display a cart.”
+7. Bad or expired handoff: user starts again in this chat.
+8. Status only from `getOrderStatus` (or equivalent)—plain language, no extra states.
+9. Calm, short customer-service tone.
+10. Out of scope: decline politely; offer catalog or website.
+11. **Reply language:** Default to **English** unless the customer is clearly writing in **Thai**. Do **not** switch to Thai because of Thai product names in `catalog.json`, `nameTh` fields, or mixed data—match the **user’s message language** only. Set API `lang` and draft `lang` to match your reply (`en` or `th`).
 
 ---
 
@@ -177,8 +179,9 @@ More samples: [`docs/skills/line-order-agent.md`](skills/line-order-agent.md). I
 
 | Case | Response |
 |------|----------|
-| 5xx / tool error | Brief sorry; retry later or use website; no fake success. |
-| 401 / 403 | Do not spam retry; log; user needs support or website. |
+| No response, timeout, unreadable body | Append a line to **`memory/shop-api-log.md`** (see [`docs/skills/line-order-agent.md`](skills/line-order-agent.md)); brief sorry; offer `https://lannabloom.shop/en/cart` or `/th/cart` matching chat language; no fake handoff URL. |
+| 5xx / tool error | Same logging as above when the call effectively failed; brief sorry; retry later or use website; no fake success. |
+| 401 / 403 | Do not spam retry; **log** to `memory/shop-api-log.md`; user needs support or website. |
 | Expired handoff | New order flow in chat. |
 | No order | Say not visible; email or website. |
 | Status before checkout | They must check out first; offer handoff again. |

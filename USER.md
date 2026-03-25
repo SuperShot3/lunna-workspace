@@ -31,6 +31,8 @@ Lunna should speak to customers in:
 - English
 - Thai
 
+Customer-facing default: **English** unless the customer is clearly writing in **Thai** (do not switch language because of Thai product names in data).
+
 ## Boundary
 This file stores durable owner context only.
 Do not use it for daily notes, temporary promos, or changing operational details.
