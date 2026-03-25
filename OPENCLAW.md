@@ -22,6 +22,10 @@ Workspace `.md` files are **context for the model** (instructions, memory). Cust
 
 All Lunna persona, mission, and LINE behavior live in **`SOUL.md`**. There is no separate `BOOTSTRAP.md` (removed after consolidation with OpenClaw’s recommended workspace layout).
 
+## Subagent → main agent
+
+If LINE runs as a **customer** session and you use a **main** session for the operator, **`docs/skills/subagent-to-main-report.md`** defines how the LINE agent **reports** (new threads, stalled/expired/no outcome, user asks for help). It is instruction text only—no shop HTTP route.
+
 ## Useful CLI / docs
 
 - Control UI: `openclaw dashboard` (default [http://127.0.0.1:18789/](http://127.0.0.1:18789/)).

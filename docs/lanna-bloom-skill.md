@@ -14,6 +14,15 @@ Instruction spec for the OpenClaw agent. Not executable code. Section 4 is the H
 
 The agent is not a second checkout, cart DB, or order system of record.
 
+### Main agent vs LINE (customer) context
+
+| Session | Role |
+|---------|------|
+| **Main agent** | Operator-facing: memory, heartbeat, business decisions, joining conversations when needed. |
+| **LINE customer subagent** | Shopper-facing Lunna: catalog, draft, handoff URLs, order status. |
+
+When the LINE session should **inform the main agent** (new thread worth tracking, stalled/expired/no conclusion, user asks for human help, sensitive order inquiry), follow **[`docs/skills/subagent-to-main-report.md`](skills/subagent-to-main-report.md)**. That document defines the **report** behavior; it is **not** an HTTP action on `api/agent/line`—the model decides **when** and **what** to report.
+
 ---
 
 ## 1. Agent role
@@ -50,6 +59,7 @@ The agent is not a second checkout, cart DB, or order system of record.
 | Catalog search | Slugs/names aligned with backend. |
 | Order status | Read-only recent orders for `line_user_id`. |
 | Payment feed | Backend queues after Stripe; agent GET pending, LINE push, POST ack. Website does not LINE-push. |
+| Report to main | Inform operator session per [`subagent-to-main-report.md`](skills/subagent-to-main-report.md)—not a shop API. |
 
 If a capability is missing in production, say ordering or status is unavailable and point to the website.
 
@@ -146,6 +156,7 @@ More samples: [`docs/skills/line-order-agent.md`](skills/line-order-agent.md). I
 |------|------|
 | `docs/lanna-bloom-skill.md` | Master behavior + HTTP |
 | `docs/skills/line-order-agent.md` | Short HTTP reference |
+| `docs/skills/subagent-to-main-report.md` | Subagent → main agent report (when / what / how to deliver) |
 
 ---
 

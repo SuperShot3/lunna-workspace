@@ -138,3 +138,9 @@ Use token from env on the agent host only.
 ## Shop code
 
 `app/api/agent/line/route.ts` in the Lanna Bloom Next.js repo.
+
+---
+
+## Report to main agent (not HTTP)
+
+Escalation and **operator awareness** (new conversation, stalled/expired/no conclusion, user asks for human help) are **not** `POST /api/agent/line` actions. They are defined in **[`subagent-to-main-report.md`](subagent-to-main-report.md)** — behavior only, no shop route.

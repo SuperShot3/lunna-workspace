@@ -125,6 +125,10 @@ Reactions are lightweight social signals. Humans use them constantly — they sa
 
 Skills provide your tools. When you need one, check its `SKILL.md`. Keep local notes (camera names, SSH details, voice preferences) in `TOOLS.md`.
 
+### LINE customer subagent → main agent
+
+If you run as (or alongside) a **LINE customer** session separate from the **main** operator session, read **`docs/skills/subagent-to-main-report.md`** when you need to **report** to the main agent: new conversations worth tracking, threads that stalled or expired without conclusion, or when the user asks for human help so the operator can **join** the LINE thread. That file is the spec—no separate shop API for “report.”
+
 **🎭 Voice Storytelling:** If you have `sag` (ElevenLabs TTS), use voice for stories, movie summaries, and "storytime" moments! Way more engaging than walls of text. Surprise people with funny voices.
 
 **📝 Platform Formatting:**
